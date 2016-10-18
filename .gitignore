@@ -4,5 +4,11 @@
 *.swp
 
 opengrid.cfg
+houseprint-*.json
 *.idea*
 *.hp
+
+flask_app/static/downloads/*
+flask_app/static/sandbox/*
+
+*.DS_Store

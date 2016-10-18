@@ -1,0 +1,41 @@
+{% extends "master.html" %}
+{% block content %}
+
+    <p class="breadcrumb">
+        <a href="{{ url_for('data') }}">
+                Data
+        </a>
+        >
+        <a href="/flukso/{{ sensor.device.key }}">
+            {{ sensor.device.key }}
+        </a>
+        >
+        {{ sensor.description }} ({{ sensor.type }})
+    </p>
+
+    <h3>{{ sensor.device.key }} > {{ sensor.description }}</h3>
+    <p class="sensor">Sensor-id: {{ sensor.key }}</p>
+
+    <h2>Available analyses</h2>
+    <div class="well">
+        {% for analysis in analyses %}
+                <p><a href="#{{ analysis.title }}">{{ analysis.title }}</a></p>
+        {% endfor %}
+    </div>
+
+    {% for analysis in analyses %}
+    <a name="{{ analysis.title }}"></a>
+    <h1>{{ analysis.title }}</h1>
+    <div class="well">
+        {% if analysis.is_html() %}
+            {{ analysis.get_content()|safe }}
+        {% elif analysis.is_figure() %}
+            <img src="/figures/{{ analysis.get_content() }}">
+        {% endif %}
+        <br>
+        <br>
+        <p>{{ analysis.description|safe }}</p>
+    </div>
+    {% endfor %}
+
+{% endblock %}
